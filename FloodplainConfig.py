@@ -5,6 +5,7 @@ more or less universal for the project.
 workDir = "T:/Floodplain_Forests_2016/"
 dataDir = workDir + "Data/"
 tempDir = workDir + "Temp/"
+intermDir = workDir + "Intermediate/"
 resultDir = workDir + "Results/"
 habMapDir = "P:/Proj3/USGap/Vert/Model/Output/CONUS/Null123/"
 seasonalhabMapDir = "P:/Proj3/USGap/Vert/Model/Output/CONUS/01/"
@@ -12,23 +13,27 @@ lcMapDir = "P:/Proj3/USGap/Vert/Model/data/LandCover"
 lcMap = "P:/Proj3/USGap/Analysis/Data/lcv1vertmosai"
 conus_extent = "P:/Proj3/USGap/Vert/Model/data/conus_ext_cnt"
 snap_raster = "P:/Proj3/USGap/Vert/Model/data/snapgrid"
-PADUS_Man = dataDir + "padus_man.tif"
-PADUS_Own = dataDir + "padus_own.tif"
+PADUS_Man = "P:/Proj3/USGap/Analysis/Data/PAD14s2001.tif"
 AOI = dataDir + "StudyRegion.shp"
 AOI_TEST = dataDir + "/TestExtent2.shp"
 habmapSuffix = "_CONUS_HabMap_2001v1.tif"
 hucs = 'P:/Proj3/USGAP/Vert/Model/data/HucRng/Hucs.shp'
-floodplainBinary = resultDir + "/Floodplain10&99.tif"
-        
+overlayTable = resultDir + "Percent_FloodplainForest/Percent_in_Floodplain_Master.csv"
+
 # List of floodplain forest map units.
-floodMUs = [1402, 5602]
+floodplainSystemCSV = dataDir + "/Ecological systems of interest.csv"
 
 # Placeholder code to use for nulls in floodplain binary map.
 placeholder_code = 99
 
+# Name of binary floodplain layer (without NoDatas)
+floodplainBinary = resultDir + "Floodplains10&{0}.tif".format(placeholder_code)
+
 # Species list derived by querying range database for native species in ecoregions
-# that could have floodplain forests.                                  
-studyRegionList = ['aMUSAx', 'aSOFRx', 'aTWAMx', 'bAMAVx', 'bAMCRx','bAMKEx', 
+# that could have floodplain forests. 
+import pickle
+studyRegionList = pickle.load(open(resultDir + "studyRegionList.pkl"))
+testExtent2List = ['aMUSAx', 'aSOFRx', 'aTWAMx', 'bAMAVx', 'bAMCRx','bAMKEx', 
 'bAMREx', 'bANHIx', 'bBEKIx', 'bBHCOx', 'bBRTHx', 'bBWHAx', 'bCAEGx', 'bDEJUx',
 'bFISPx', 'bFOTEx', 'bGRSCx', 'bHERGx', 'bLALOx', 'bLBDOx', 'bLEBIx', 'bLESAx',
 'bLOSHx', 'bNOHAx', 'bNOPIx', 'bNSHOx', 'bPAWAx', 'bPIWAx', 'bPUFIx', 'bRBGUx',
@@ -72,3 +77,7 @@ studyRegionList = ['aMUSAx', 'aSOFRx', 'aTWAMx', 'bAMAVx', 'bAMCRx','bAMKEx',
 
 # studyRegionList converted to null123 raster names.
 null123List = [i[0] + i[1:5].upper() + i[5:] + habmapSuffix for i in studyRegionList]
+
+# Location of lists of species exceeding the % habitat overlay threshold
+winterTopSpList = resultDir + "TopWinterSpecies.csv"
+summerTopSpList = resultDir + "TopSummerSpecies.csv"

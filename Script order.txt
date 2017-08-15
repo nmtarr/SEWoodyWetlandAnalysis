@@ -1,5 +1,7 @@
 1. GetStudyRegionSpeciesList.py
-1. MakeBinaryFloodplainForestMap.py
+1. DevelopFloodplainMUList.py
+1. MapFloodplainForests.py
 2. CalculatePercentHabitatInFloodplainForests.py
-3. MapSpeciesRichness.py
-3. AssessProtection.py
+3. SummarizeOverlay.py
+4. MapSpeciesRichness.py
+4. AssessProtection.py

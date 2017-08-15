@@ -13,29 +13,51 @@ pd.set_option('display.width', 1000)
 
 ######################################### Calculate representation on floodplains forests
 #########################################################################################
-# Calculate representation
-dfSpFF = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary, 
-                                   zoneName="Floodplain", 
-                                   zoneField="VALUE", 
-                                   habmapList=floodconfig.habMapList,
+# Calculate representation - kernel 1
+scratchDir = floodconfig.tempDir
+maps = floodconfig.null123List[340:363]
+dfSpFF1 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
+                                   zoneName="Floodplain",
+                                   zoneField="VALUE",
+                                   habmapList=maps,
                                    habDir=floodconfig.habMapDir,
                                    workDir=floodconfig.resultDir+"Percent_FloodplainForest",
                                    snap=floodconfig.snap_raster,
+                                   scratchDir=scratchDir,
                                    extent="zoneFile")
-
-
-###################################  Filter to get list of top species in terms of FF use
-#########################################################################################
-# Assign cutoff for filtering
-cutoff = 10.0
-
-# Filter out the records corresponding to 0/nodata/99.
-dfSpFF2 = dfSpFF.loc[dfSpFF.index.get_level_values(1) != floodconfig.placeholder_code]
-
-# Filter dataframe for top species and save, also make list for below
-winterSp = dfSpFF2[dfSpFF2["PercWinter"] > cutoff]
-winterSp.to_csv(floodconfig.resultDir + "TopWinterSpecies.csv")
-winterSp = list(winterSp.strUC)
-summerSp = dfSpFF2[dfSpFF2["PercSummer"] > cutoff]
-summerSp.to_csv(floodconfig.resultDir + "TopSummerSpecies.csv")
-summerSp = list(summerSp.strUC)
+# Calculate representation - kernel 2
+scratchDir = floodconfig.tempDir + "temp2/"
+maps = floodconfig.null123List[363:387]
+dfSpFF2 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
+                                   zoneName="Floodplain",
+                                   zoneField="VALUE",
+                                   habmapList=maps,
+                                   habDir=floodconfig.habMapDir,
+                                   workDir=floodconfig.resultDir+"Percent_FloodplainForest",
+                                   snap=floodconfig.snap_raster,
+                                   scratchDir=scratchDir,
+                                   extent="zoneFile")
+# Calculate representation - kernel 3
+scratchDir = floodconfig.tempDir + "temp3/"
+maps = floodconfig.null123List[387:400]
+dfSpFF3 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
+                                   zoneName="Floodplain",
+                                   zoneField="VALUE",
+                                   habmapList=maps,
+                                   habDir=floodconfig.habMapDir,
+                                   workDir=floodconfig.resultDir+"Percent_FloodplainForest",
+                                   snap=floodconfig.snap_raster,
+                                   scratchDir=scratchDir,
+                                   extent="zoneFile")
+# Calculate representation - kernel 4
+scratchDir = floodconfig.tempDir + "temp4/"
+maps = floodconfig.null123List[400:424]
+dfSpFF4 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
+                                   zoneName="Floodplain",
+                                   zoneField="VALUE",
+                                   habmapList=maps,
+                                   habDir=floodconfig.habMapDir,
+                                   workDir=floodconfig.resultDir+"Percent_FloodplainForest",
+                                   snap=floodconfig.snap_raster,
+                                   scratchDir=scratchDir,
+                                   extent="zoneFile")
