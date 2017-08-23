@@ -61,39 +61,42 @@ def getProtection(strUC, season):
     strUC -- Species code (e.g., "mVASHx")
     season -- Season to summarize on (i.e., summer, winter, or all year)
     '''
-    seasonDict = {"summer":(1,3), "winter":(2,3), "all year":(3,3)}
-    conString = """DRIVER=SQL Server Native Client 10.0;
-                        SERVER=CHUCK\SQL2014;
-                        UID=;
-                        PWD=;
-                        TRUSTED_CONNECTION=Yes;
-                        DATABASE=GAP_AnalyticDB;"""
-    anCur, anCon = gp.gapdb.ConnectToDB(conString)
-    
-    sql = """
-    --Retrieve species boundary info for one species.
-    WITH SpPAD AS (
-    SELECT lu_boundary_species.boundary, lu_boundary_species.count, 
-           lu_boundary_species.season, lu_boundary_species.species_cd, 
-           lu_boundary.value, lu_boundary.padus1_4, padus1_4.revoid, 
-           padus1_4.gap_sts
-    FROM lu_boundary_species INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_species.boundary
-       					        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
-    WHERE (lu_boundary_species.species_cd = '{0}' and (lu_boundary_species.season = {1} or lu_boundary_species.season = {2})))
-    
-    
-    --Group by count
-    SELECT  s.gap_sts, sum(s.count) AS cells
-    FROM SpPAD AS s
-    GROUP BY s.gap_sts
-    """.format(sp, str(seasonDict[season][0]), str(seasonDict[season][1]))
-    
-    qryDF = pd.read_sql(sql, anCon).set_index("gap_sts")
-    
-    del anCur
-    anCon.close()
-    
-    return qryDF
+    try:
+        seasonDict = {"summer":(1,3), "winter":(2,3), "all year":(3,3)}
+        conString = """DRIVER=SQL Server Native Client 10.0;
+                            SERVER=CHUCK\SQL2014;
+                            UID=;
+                            PWD=;
+                            TRUSTED_CONNECTION=Yes;
+                            DATABASE=GAP_AnalyticDB;"""
+        anCur, anCon = gp.gapdb.ConnectToDB(conString)
+        
+        sql = """
+        --Retrieve species boundary info for one species.
+        WITH SpPAD AS (
+        SELECT lu_boundary_species.boundary, lu_boundary_species.count, 
+               lu_boundary_species.season, lu_boundary_species.species_cd, 
+               lu_boundary.value, lu_boundary.padus1_4, padus1_4.revoid, 
+               padus1_4.gap_sts
+        FROM lu_boundary_species INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_species.boundary
+           					        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
+        WHERE (lu_boundary_species.species_cd = '{0}' and (lu_boundary_species.season = {1} or lu_boundary_species.season = {2})))
+        
+        
+        --Group by count
+        SELECT  s.gap_sts, sum(s.count) AS cells
+        FROM SpPAD AS s
+        GROUP BY s.gap_sts
+        """.format(sp, str(seasonDict[season][0]), str(seasonDict[season][1]))
+        
+        qryDF = pd.read_sql(sql, anCon).set_index("gap_sts")
+        
+        del anCur
+        anCon.close()
+        
+        return qryDF
+    except Exception as e:
+        print(e)
 
 
 # Get list of species to query.
@@ -112,10 +115,22 @@ winter0 = pd.DataFrame(index=winterSp,
 print("\n*** SUMMER ***")
 for sp in summerSp:
     prot = getProtection(sp, season="summer")
-    summer0.loc[sp, 'status_1'] = int(prot.loc["1"])
-    summer0.loc[sp, 'status_2'] = int(prot.loc["2"])
-    summer0.loc[sp, 'status_3'] = int(prot.loc["3"])
-    summer0.loc[sp, 'status_4'] = int(prot.loc["4"])
+    try:
+        summer0.loc[sp, 'status_1'] = int(prot.loc["1"])
+    except: 
+        summer0.loc[sp, 'status_1'] = 0
+    try:
+        summer0.loc[sp, 'status_2'] = int(prot.loc["2"])
+    except:
+        summer0.loc[sp, 'status_2'] = 0
+    try:
+        summer0.loc[sp, 'status_3'] = int(prot.loc["3"])
+    except:
+        summer0.loc[sp, 'status_3'] = 0
+    try:
+        summer0.loc[sp, 'status_4'] = int(prot.loc["4"])
+    except:
+        summer0.loc[sp, 'status_4'] = 0
 summer0["total_cells"] = summer0.status_1 + summer0.status_2 + summer0.status_3 + summer0.status_4
 summer0['status_1%'] = 100.*summer0.status_1/summer0.total_cells
 summer0['status_2%'] = 100.*summer0.status_2/summer0.total_cells
@@ -147,10 +162,23 @@ fig.savefig(floodconfig.resultDir + "Protection Boxplot Summer.png", dpi=600,
 print("\n*** WINTER ***")
 for sp in winterSp:
     prot = getProtection(sp, season="winter")
-    winter0.loc[sp, 'status_1'] = int(prot.loc["1"])
-    winter0.loc[sp, 'status_2'] = int(prot.loc["2"])
-    winter0.loc[sp, 'status_3'] = int(prot.loc["3"])
-    winter0.loc[sp, 'status_4'] = int(prot.loc["4"])
+    try:
+        winter0.loc[sp, 'status_1'] = int(prot.loc["1"])
+    except: 
+        winter0.loc[sp, 'status_1'] = 0
+    try:
+        winter0.loc[sp, 'status_2'] = int(prot.loc["2"])
+    except:
+        winter0.loc[sp, 'status_2'] = 0
+    try:
+        winter0.loc[sp, 'status_3'] = int(prot.loc["3"])
+    except:
+        winter0.loc[sp, 'status_3'] = 0
+    try:
+        winter0.loc[sp, 'status_4'] = int(prot.loc["4"])
+    except:
+        winter0.loc[sp, 'status_4'] = 0
+        
 winter0["total_cells"] = winter0.status_1 + winter0.status_2 + winter0.status_3 + winter0.status_4
 winter0['status_1%'] = 100.*winter0.status_1/winter0.total_cells
 winter0['status_2%'] = 100.*winter0.status_2/winter0.total_cells

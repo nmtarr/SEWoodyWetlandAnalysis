@@ -15,7 +15,7 @@ pd.set_option('display.width', 1000)
 #########################################################################################
 # Calculate representation - kernel 1
 scratchDir = floodconfig.tempDir
-maps = floodconfig.null123List[340:363]
+maps = floodconfig.null123List[424:461]
 dfSpFF1 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    zoneName="Floodplain",
                                    zoneField="VALUE",
@@ -27,7 +27,7 @@ dfSpFF1 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    extent="zoneFile")
 # Calculate representation - kernel 2
 scratchDir = floodconfig.tempDir + "temp2/"
-maps = floodconfig.null123List[363:387]
+maps = floodconfig.null123List[461:498]
 dfSpFF2 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    zoneName="Floodplain",
                                    zoneField="VALUE",
@@ -39,7 +39,7 @@ dfSpFF2 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    extent="zoneFile")
 # Calculate representation - kernel 3
 scratchDir = floodconfig.tempDir + "temp3/"
-maps = floodconfig.null123List[387:400]
+maps = floodconfig.null123List[498:535]
 dfSpFF3 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    zoneName="Floodplain",
                                    zoneField="VALUE",
@@ -51,7 +51,7 @@ dfSpFF3 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    extent="zoneFile")
 # Calculate representation - kernel 4
 scratchDir = floodconfig.tempDir + "temp4/"
-maps = floodconfig.null123List[400:424]
+maps = floodconfig.null123List[535:]
 dfSpFF4 = ga.habitat.PercentOverlay(zoneFile=floodconfig.floodplainBinary,
                                    zoneName="Floodplain",
                                    zoneField="VALUE",

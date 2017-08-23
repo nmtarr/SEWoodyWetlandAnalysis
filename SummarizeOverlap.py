@@ -30,13 +30,44 @@ df0["scientific_name"] = [gp.gapdb.NameSci(s) for s in df0.strUC]
 ###############################################################################
 # Remove placeholder rows and species with no ovelap in any season
 df1 = df0[df0.Zone != floodconfig.placeholder_code]
-df1 = df1[df1.NonHabitatPixels != df1.ZoneTotal]
-descDF = df1.describe(percentiles=np.arange(0, 1, .01))
-descDF.drop(["Zone", "NonHabitatPixels", "SummerPixels", "WinterPixels", 
+df1 = df1[(df1.PercSummer != 0) | (df1.PercWinter != 0)]
+df2 = df1.drop(["Zone", "NonHabitatPixels", "SummerPixels", "WinterPixels", 
              "AllYearPixels", "ZoneTotal", "SummerPixelTotal", "WinterPixelTotal",
-             "AllYearPixelTotal"], axis=1, inplace=True)
-print(descDF)
-descDF.to_csv(floodconfig.resultDir + "Overlay descriptive statistics.csv")
+             "AllYearPixelTotal", "Date", "RunTime", "GeoTiff", "strUC", 
+             "PercYearRound"], axis=1)
+print("{0} species use the systems of interest".format(len(df2)))
+df2.to_csv(floodconfig.resultDir + "Species that use floodplain systems.csv")
+
+# Summer and winter need to be described separately so that zeros can be
+# properly ommitted.
+descSum0 = df2.drop(["PercWinter", "common_name", "scientific_name"],
+                   axis=1)
+descSum = descSum0[descSum0.PercSummer > 0].describe(percentiles=np.arange(0, 1, .01))
+descSum.to_csv(floodconfig.resultDir + "Overlay descriptive statistics SUMMER.csv")
+descWint0 = df2.drop(["PercSummer", "common_name", "scientific_name"],
+                   axis=1)
+descWint = descWint0[descWint0.PercWinter > 0].describe(percentiles=np.arange(0, 1, .01))
+descWint.to_csv(floodconfig.resultDir + "Overlay descriptive statistics WINTER.csv")
+
+
+################################################ Box plots of summer and winter
+###############################################################################
+# Manipulate tables
+df1summer = df1.filter(["strUC", "PercSummer"], axis=1).set_index(["strUC"])
+df1winter = df1.filter(["strUC", "PercWinter"], axis=1).set_index(["strUC"])
+df1summer.rename(columns={"PercSummer":"Summer"}, inplace=True)
+df1winter.rename(columns={"PercWinter":"Winter"}, inplace=True)
+df1summer = df1summer[df1summer.Summer > 0]
+df1winter = df1winter[df1winter.Winter > 0]
+
+# Graph
+fig = plt.figure()
+ax2 = fig.add_subplot(1,2,1)
+df1summer.plot(ax = ax2, kind="box", yticks=range(0,100, 10))
+ax2.set_ylabel("%")
+ax3 = fig.add_subplot(1,2,2)
+df1winter.plot(ax = ax3, kind="box", yticks=range(0,100, 10))
+fig.savefig(floodconfig.resultDir + "Overlay boxplot.png", dpi=600)
 
 
 ############################################## Filter out non dependent species
@@ -60,14 +91,18 @@ print("\n{0} species with more than {1}% of summer habitat in floodplain forests
 for x in [gp.gapdb.NameCommon(x) for x in list(summerSp.strUC)]:
     print("\t" + x)
 
+topSp = dfSpFF[(dfSpFF["PercSummer"] >= threshold) | (dfSpFF["PercWinter"] >= threshold)]
+topSp.to_csv(floodconfig.TopSpList)
+
 
 ######################################## Histogram of percSummer and percWinter
 ###############################################################################
 # Summer
 df1summer = df1.filter(["strUC", "PercSummer"], axis=1).set_index(["strUC"])
+df1summer = df1summer[df1summer.PercSummer > 0]
 bins = np.arange(0, 110, 10)-5    # this enables bins to sit above x ticks, note it's 1 + desired bin number
 ax = df1summer.plot(kind="hist", legend=False, color=['y'], bins=bins, # note limit is 1 + desired bin number
-                     xlim=(0,110), title="Percent Summer Habitat in Floodplain Forests")
+                     xlim=(0,110))
 ax.set_xlabel("Percent of Species' Total Habitat Area")
 ax.set_ylabel("Frequency (# species)")
 fig = plt.gcf()
@@ -75,20 +110,12 @@ fig.savefig(floodconfig.resultDir + "Summer overlay histogram.png", dpi=600)
 
 # Winter
 df1winter = df1.filter(["strUC", "PercWinter"], axis=1).set_index(["strUC"])
+df1winter = df1winter[df1winter.PercWinter > 0]
 ax3 = df1winter.plot(kind="hist", legend=False, bins=bins, # note limit is 1 + desired bin number
-                     xlim=(0,110), title="Percent Winter Habitat in Floodplain Forests")
+                     xlim=(0,110))
 ax3.set_xlabel("Percent of Species' Total Habitat Area")
 ax3.set_ylabel("Frequency (# species)")
 fig3 = plt.gcf()
 fig3.savefig(floodconfig.resultDir + "Winter overlay histogram.png", dpi=600)
 
 
-################################################ Box plots of summer and winter
-###############################################################################
-df1summerwinter = df1.filter(["strUC", "PercSummer", "PercWinter"], axis=1).set_index(["strUC"])
-df1summerwinter.rename(columns={"PercSummer":"Summer", "PercWinter":"Winter"}, inplace=True)
-ax2 = df1summerwinter.plot(kind="box", title="Species' habitat in floodplain forests", 
-                           yticks=range(0,100, 10))
-ax2.set_ylabel("%")
-fig2 = plt.gcf()
-fig2.savefig(floodconfig.resultDir + "Overlay boxplot.png", dpi=600)

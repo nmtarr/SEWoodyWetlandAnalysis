@@ -81,3 +81,4 @@ null123List = [i[0] + i[1:5].upper() + i[5:] + habmapSuffix for i in studyRegion
 # Location of lists of species exceeding the % habitat overlay threshold
 winterTopSpList = resultDir + "TopWinterSpecies.csv"
 summerTopSpList = resultDir + "TopSummerSpecies.csv"
+TopSpList = resultDir + "TopSpecies.csv"
