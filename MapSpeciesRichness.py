@@ -10,17 +10,18 @@ sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapanalysis as ga
 import FloodplainConfig as floodconfig
 pd.set_option('display.width', 1000)
+arcpy.CheckOutExtension("Spatial")
 
-######################################### Map richness of top species (winter and summer)
-#########################################################################################
+##################################### Map richness of top species (winter and summer)
+#####################################################################################
 # Winter
 winterDF = pd.read_csv(floodconfig.winterTopSpList)
 winterSp = list(winterDF.strUC)
 winterTiffs = [x + "_v1.tif" for x in winterSp]
 wRichnessMap = ga.richness.MapRichness(spp=winterTiffs, groupName="Top_Winter",
-                                       outLoc=floodconfig.resultDir, 
+                                       outLoc=floodconfig.resultDir,
                                        modelDir=floodconfig.seasonalhabMapDir,
-                                       season="Winter", 
+                                       season="Winter",
                                        intervalSize=40,
                                        CONUSExtent=floodconfig.conus_extent)
 # Summer
@@ -37,8 +38,8 @@ sRichnessMap = ga.richness.MapRichness(spp=summerTiffs, groupName="Top_Summer",
 
 #########################################  Mask the richness with the floodplain layer
 ######################################################################################
-maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap, floodconfig.floodplainBinary)
+maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap, arcpy.Raster(floodconfig.floodplainBinary))
 maskedWinter.save(floodconfig.resultDir + "maskedRichnessWinter.tif")
 
-maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap, floodconfig.floodplainBinary)
+maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap, arcpy.Raster(floodconfig.floodplainBinary))
 maskedSummer.save(floodconfig.resultDir + "maskedRichnessSummer.tif")

@@ -1,6 +1,11 @@
 '''
 Config file for a floopdlain forest analysis.  Below are variables that are
 more or less universal for the project.
+
+Figure size limits are 5.28 x 8.125
+Figure font helvetica or sans serif font, less than 10 pt.
+
+Table width <= 5.25 inches wide (8.3 in landscape), 9pt Times New Roman font.
 '''
 workDir = "T:/Floodplain_Forests_2016/"
 dataDir = workDir + "Data/"
@@ -19,6 +24,8 @@ AOI_TEST = dataDir + "/TestExtent2.shp"
 habmapSuffix = "_CONUS_HabMap_2001v1.tif"
 hucs = 'P:/Proj3/USGAP/Vert/Model/data/HucRng/Hucs.shp'
 overlayTable = resultDir + "Percent_FloodplainForest/Percent_in_Floodplain_Master.csv"
+summerRichness = resultDir + "Top_Summer/Top_Summer_Richness.tif"
+winterRichness = resultDir + "Top_Winter/Top_Winter_Richness.tif"
 
 # List of floodplain forest map units.
 floodplainSystemCSV = dataDir + "/Ecological systems of interest.csv"
@@ -28,6 +35,9 @@ placeholder_code = 99
 
 # Name of binary floodplain layer (without NoDatas)
 floodplainBinary = resultDir + "Floodplains10&{0}.tif".format(placeholder_code)
+
+# Name of floodplain layer (with NoDatas)
+floodplain = resultDir + "Floodplain.tif"
 
 # Species list derived by querying range database for native species in ecoregions
 # that could have floodplain forests. 
@@ -82,3 +92,36 @@ null123List = [i[0] + i[1:5].upper() + i[5:] + habmapSuffix for i in studyRegion
 winterTopSpList = resultDir + "TopWinterSpecies.csv"
 summerTopSpList = resultDir + "TopSummerSpecies.csv"
 TopSpList = resultDir + "TopSpecies.csv"
+
+# Paths to richness rasters
+richnessPathsCONUS = {
+"amphibian": dataDir + "Amphibian_Richness.tif",
+"bird_summer": dataDir + "Bird_Summer_Richness.tif",
+"bird_winter": dataDir + "Bird_Winter_Richness.tif",
+"reptile": dataDir + "Reptile_Richness.tif",
+"mammal": dataDir + "Mammal_Richness.tif",
+"all_taxa": dataDir + "All_Richness.tif"}
+
+richnessPathsSE = {
+"amphibian": resultDir + "Amphibian_Richness_SE.tif",
+"bird_summer": resultDir + "Bird_Summer_Richness_SE.tif",
+"bird_winter": resultDir + "Bird_Winter_Richness_SE.tif",
+"reptile": resultDir + "Reptile_Richness_SE.tif",
+"mammal": resultDir + "Mammal_Richness_SE.tif",
+"all_taxa": resultDir + "All_Richness_SE.tif"}    
+
+richnessPathsFlood = {
+"amphibian": resultDir + "Amphibian_Richness_Flood.tif",
+"bird_summer": resultDir + "Bird_Summer_Richness_Flood.tif",
+"bird_winter": resultDir + "Bird_Winter_Richness_Flood.tif",
+"reptile": resultDir + "Reptile_Richness_Flood.tif",
+"mammal": resultDir + "Mammal_Richness_Flood.tif",
+"all_taxa": resultDir + "All_Richness_Flood.tif"}    
+
+
+
+
+
+
+
+
