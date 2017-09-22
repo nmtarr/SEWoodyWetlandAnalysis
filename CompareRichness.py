@@ -35,7 +35,7 @@ for group in floodconfig.richnessPathsCONUS.keys():
     conusRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsCONUS[group])
     conusRAT = conusRAT[:-1]
     conusRAT = conusRAT[conusRAT.index > 0]
-    ax1 = conusRAT.plot(kind="box", legend=False)
+    ax1 = conusRAT.plot(kind="line", legend=False)
     ax1.set_ylabel("frequency (# cells)")
     
     # SE
@@ -53,20 +53,3 @@ for group in floodconfig.richnessPathsCONUS.keys():
     ax2 = floodRAT.plot(kind="line", legend=False)
     ax2.set_ylabel("frequency (# cells)")
     
-    # Put all tables in same dataframe
-    DF0 = conusRAT
-    DF0.index.name = "value"
-    DF0.rename(columns={"cell_count":"CONUS"}, inplace=True)
-    for i in seRAT.index:
-        DF0.loc[i, "Southeast"] = seRAT.loc[i, "cell_count"]
-    for i in floodRAT.index:
-        DF0.loc[i, "floodplain"] = floodRAT.loc[i, "cell_count"]
-        
-    # Make distribution plot
-    ax = DF0.plot(kind="line", legend=True, title=group,
-                  color=["b", "r", "g"])
-    ax.set_ylabel("Frequency (# of cells)", fontsize=fontSize)
-    ax.set_xlabel("Species count", fontsize=fontSize)
-    plt.legend(frameon=False)
-    fig2 = ax.get_figure()
-    fig2.savefig(floodconfig.resultDir + "{0} curves.png".format(group))
