@@ -117,11 +117,3 @@ richnessPathsFlood = {
 "reptile": resultDir + "Reptile_Richness_Flood.tif",
 "mammal": resultDir + "Mammal_Richness_Flood.tif",
 "all_taxa": resultDir + "All_Richness_Flood.tif"}    
-
-
-
-
-
-
-
-
