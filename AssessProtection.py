@@ -153,7 +153,7 @@ def getProtection(strUC, season):
         SELECT  s.gap_sts, sum(s.count) AS cells
         FROM SpPAD AS s
         GROUP BY s.gap_sts
-        """.format(sp, str(seasonDict[season][0]), str(seasonDict[season][1]))
+        """.format(strUC, str(seasonDict[season][0]), str(seasonDict[season][1]))
         
         qryDF = pd.read_sql(sql, anCon).set_index("gap_sts")
         
@@ -163,7 +163,6 @@ def getProtection(strUC, season):
         return qryDF
     except Exception as e:
         print(e)
-
 
 # Get list of species to query.
 summerDF = pd.read_csv(floodconfig.summerTopSpList)
@@ -269,3 +268,41 @@ wintAx.set_xlabel("GAP Protection Status")
 fig = plt.gcf()
 fig.savefig(floodconfig.resultDir + "Protection Boxplot Winter.png", dpi=600,
             bbox_inches="tight")
+
+#######################  Make table of status 1 or 2 protection for top species
+###############################################################################
+# get combined species list
+tops = set(summerSp) | set(winterSp)
+
+# Define function to find out how much habitat is in status 1 or 2
+def status1or2(strUC, season):
+    '''
+    (string, string) -> float
+    
+    Description:
+        Determines what percentage of species's seasonal habitat is in status
+    1 or 2.
+    '''
+    # Blank DataFrame to fill out
+    blank = pd.DataFrame(index = ["1","2","3","4"], 
+                         columns=["cells", "percent"])
+    # Get the protection amounts from Analytic DB
+    one = getProtection(strUC, season)
+    # Fill out the blank table, use this blank so that errors don't occur
+    # if a species' habitat is all in less than 4 statuses.
+    for x in one.index:
+            blank.loc[x, "cells"] = one.loc[x, "cells"]
+            blank.fillna(0, inplace=True)
+    # get total count and calculate the percentage in 1 or 2 status.
+    total = float(blank.cells.sum())
+    protDF = blank.iloc[:2]
+    protCells = protDF.cells.sum()
+    return 100*(protCells/total)
+  
+# Empty dataframes to fill out.
+df10 = pd.DataFrame(index=tops, columns=["summer", "winter"])
+df10["common_name"] = [gp.gapdb.NameCommon(s) for s in df10.index]
+df10["summer"] = [status1or2(strUC, "summer") for strUC in df10.index]
+df10["winter"] = [status1or2(strUC, "winter") for strUC in df10.index]
+df10.fillna(0, inplace=True).sort()
+df10.to_csv(floodconfig.resultDir + "TopSpeciesProtection1or2.csv")
