@@ -31,11 +31,11 @@ arcpy.env.cellSize = 30
 ###############################################################################
 PAD = arcpy.Raster(floodconfig.PADUS_Man)
 FloodBin = arcpy.Raster(floodconfig.resultDir + "Floodplain.tif")
-'''
+
 # Overlay the PAD layer and binary floodplain layer
 floodPAD = PAD * (FloodBin - 9)
 floodPAD.save(floodconfig.resultDir + "FloodplainPAD.tif")
-'''
+
 # Make a pie chart of protection
 floodPADRAT = ga.misc.RATtoDataFrame(floodconfig.resultDir + "FloodplainPAD.tif")
 ax = floodPADRAT.plot(y="cell_count", kind='Pie', figsize=(4,4), autopct='%.2f',
