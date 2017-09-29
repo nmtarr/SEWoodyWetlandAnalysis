@@ -9,9 +9,6 @@ A figure with boxplots of richness from CONUS, SE, and floodplains would be
 ideal; but it's not easy to do that with RAT/frequency tables.
 """
 import sys, pandas as pd, matplotlib.pyplot as plt, numpy as np
-sys.path.append('T:/Scripts/GAPAnalysis')
-sys.path.append('T:/Scripts/GAPProduction')
-sys.path.append('T:/GAP/data')
 sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapproduction as gp
 import gapanalysis as ga

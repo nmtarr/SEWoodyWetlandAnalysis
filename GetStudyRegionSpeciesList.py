@@ -8,8 +8,6 @@ region and are associated with one of the ecological systems of interest in the
 database OR are handmodeled.  This code seeks to build that list.
 """
 import sys, pandas as pd, pickle
-sys.path.append('T:/Gap/Data')
-sys.path.append('T:/Scripts/GAPProduction')
 sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapproduction as gp
 import FloodplainConfig as floodconfig

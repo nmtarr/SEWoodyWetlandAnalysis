@@ -2,12 +2,15 @@
 """
 Created on Thu Aug 10 10:28:29 2017 by nmtarr
 
-Description:  
+Description:  Produces results related to the protection of ecological systems
+and species.  Note that some processes (lines 33-35) take up to an hour to run
+and could be skipped if the floodPAD layer already exists. Also note that this
+code queries the Analytic Databse.
+
+This code may have some reduncancy in it that could be cleaned up, and it may
+needs some more documentation.
 """
 import sys, matplotlib.pyplot as plt
-sys.path.append('T:/GAP/Data')
-sys.path.append('T:/Scripts/GAPAnalysis')
-sys.path.append('T:/Scripts/GAPProduction')
 import gapconfig as config
 sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapanalysis as ga
@@ -16,7 +19,7 @@ import FloodplainConfig as floodconfig
 import pandas as pd
 pd.set_option('display.width', 1000)
 
-######
+###### Geoprocessing environment settings
 import arcpy
 arcpy.ResetEnvironments()
 arcpy.CheckOutExtension("Spatial")
@@ -39,7 +42,7 @@ floodPAD.save(floodconfig.resultDir + "FloodplainPAD.tif")
 # Make a pie chart of protection
 floodPADRAT = ga.misc.RATtoDataFrame(floodconfig.resultDir + "FloodplainPAD.tif")
 ax = floodPADRAT.plot(y="cell_count", kind='Pie', figsize=(4,4), autopct='%.2f',
-                 legend=False,# title="Protection of Floodplain Systems by GAP Status",
+                 legend=False,
                  colors = ["#009933", "#cccc00", "#999999", "#e6e6e6"])
 ax.set_ylabel("%")
 fig = plt.gcf()
@@ -62,13 +65,8 @@ def getEcoSysProtection(ecoSys):
     blank = pd.DataFrame(index = ["1","2","3","4", "1234"], 
                          columns=["cells", "percent"])
     try:
-        conString = """DRIVER=SQL Server Native Client 10.0;
-                            SERVER=CHUCK\SQL2014;
-                            UID=;
-                            PWD=;
-                            TRUSTED_CONNECTION=Yes;
-                            DATABASE=GAP_AnalyticDB;"""
-        anCur, anCon = gp.gapdb.ConnectToDB(conString)
+        # Connect to analytic database
+        anCur, anCon = gp.gapdb.ConnectAnalyticDB()
         
         sql = """
         --Retrieve ecological system boundary info for one system.
@@ -76,8 +74,9 @@ def getEcoSysProtection(ecoSys):
         SELECT lu_boundary_gap_landfire.boundary, lu_boundary_gap_landfire.count,
                lu_boundary_gap_landfire.gap_landfire, lu_boundary.value, lu_boundary.padus1_4, 
                padus1_4.revoid, padus1_4.gap_sts
-        FROM lu_boundary_gap_landfire INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_gap_landfire.boundary
-           					          INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid),
+        FROM lu_boundary_gap_landfire 
+        INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_gap_landfire.boundary
+        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid),
         
         --Retrieve ecological system name and code
         ECOSYS AS (
@@ -129,13 +128,9 @@ def getProtection(strUC, season):
     '''
     try:
         seasonDict = {"summer":(1,3), "winter":(2,3), "all year":(3,3)}
-        conString = """DRIVER=SQL Server Native Client 10.0;
-                            SERVER=CHUCK\SQL2014;
-                            UID=;
-                            PWD=;
-                            TRUSTED_CONNECTION=Yes;
-                            DATABASE=GAP_AnalyticDB;"""
-        anCur, anCon = gp.gapdb.ConnectToDB(conString)
+        
+        # Connect to analytic database
+        anCur, anCon = gp.gapdb.ConnectAnalyticDB()
         
         sql = """
         --Retrieve species boundary info for one species.
@@ -144,9 +139,11 @@ def getProtection(strUC, season):
                lu_boundary_species.season, lu_boundary_species.species_cd, 
                lu_boundary.value, lu_boundary.padus1_4, padus1_4.revoid, 
                padus1_4.gap_sts
-        FROM lu_boundary_species INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_species.boundary
-           					        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
-        WHERE (lu_boundary_species.species_cd = '{0}' and (lu_boundary_species.season = {1} or lu_boundary_species.season = {2})))
+        FROM lu_boundary_species 
+        INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_species.boundary
+        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
+        WHERE (lu_boundary_species.species_cd = '{0}' 
+               and (lu_boundary_species.season = {1} or lu_boundary_species.season = {2})))
         
         
         --Group by count
@@ -299,7 +296,7 @@ def status1or2(strUC, season):
     protCells = protDF.cells.sum()
     return 100*(protCells/total)
   
-# Empty dataframes to fill out.
+# Fill out a DataFrame
 df10 = pd.DataFrame(index=tops, columns=["summer", "winter"])
 df10["common_name"] = [gp.gapdb.NameCommon(s) for s in df10.index]
 df10["summer"] = [status1or2(strUC, "summer") for strUC in df10.index]

@@ -8,9 +8,6 @@ Description:  This code summarizes the results of the CalculatePercentHabitatInF
  habitat occurs in floodplain forests.
 """
 import sys, pandas as pd, matplotlib.pyplot as plt, numpy as np
-sys.path.append('T:/Scripts/GAPAnalysis')
-sys.path.append('T:/Scripts/GAPProduction')
-sys.path.append('T:/GAP/data')
 sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapproduction as gp
 import gapanalysis as ga
