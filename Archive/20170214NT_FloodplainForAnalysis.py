@@ -6,7 +6,6 @@ Code to run analyses on the importance of floodplain forests for wildlife
 """
 import sys, pandas as pd, arcpy
 sys.path.append('T:/Scripts/GAPAnalysis')
-sys.path.append('T:/Gap/Data')
 sys.path.append('T:/Scripts/GAPProduction')
 sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
 import gapanalysis as ga, gapproduction as gp, gapconfig as config
