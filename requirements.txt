@@ -1,6 +1,6 @@
 arcpy 10.2.1
 GAPAnalysis >=0.3 available at https://github.com/nmtarr/GAPAnalysis
-GAPProduction >=1.3 available at https://github.com/nmtarr/GAPProduction/releases
+GAPProduction >=1.3 available at https://github.com/nmtarr/GAPProduction
 pandas >= 0.20.1
 matplotlib >= 2.1.0
 numpy >=1.13.3
