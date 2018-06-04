@@ -13,15 +13,18 @@ import FloodplainConfig as floodconfig
 # Use wildclass sets to whittle down the list.
 broadTree = gp.wildclass.hasBroadTree()
 hasForest = gp.wildclass.hasForest()
+needleTree = gp.wildclass.hasNeedleTree()
 flooded = gp.wildclass.hasSaturatedSoil()
 satBroad = broadTree & flooded & hasForest
+satNeedle = needleTree & flooded
+sat = satBroad | satNeedle
 
 # Save a table version of whittled down list for manual review.
-df = pd.DataFrame(list(satBroad))
+df = pd.DataFrame(list(sat))
 df.rename(columns={0:"map_code"}, inplace=True)
 df["system_name"] = [gp.gapdb.MUName(m) for m in df.map_code]
-df.to_csv(floodconfig.intermDir + "saturated and broad tree systems.csv")
+df.to_csv(floodconfig.intermDir + "saturated systems with trees.csv")
 
-# The next step is to open the "saturated and broad treee systems.csv" and 
+# The next step is to open the "saturated systems with trees.csv" and 
 # put a "1" in an "include" column, then save as "Ecological systems of interest.csv"
 # in the data directory.  That step has to be done by a human.

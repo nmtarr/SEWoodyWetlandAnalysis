@@ -1,13 +1,10 @@
 =================================
 Southeast Woody Wetland Analysis Code
 =================================
-
-
-The analysis finds species that depend heavily upon the woody wetlands of the Southeast, such as swamps, depressions, pocosins, and bottomland hardwood forests.  It also assesses the protection of those wetlands, assess protection of habitat for the species, and maps hotspots of wetland-dependent species.
-
 The "archive" folder contains some scripts from early in the workflow development.
 
 PURPOSE
+The analysis finds species that depend heavily upon the woody wetlands of the Southeast, such as swamps, depressions, pocosins, and bottomland hardwood forests.  It also assesses the protection of those wetlands, assess protection of habitat for the species, and maps hotspots of wetland-dependent species.
 
 CONSTRAINTS
 
