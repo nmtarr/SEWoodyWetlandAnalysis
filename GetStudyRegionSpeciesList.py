@@ -8,9 +8,11 @@ region and are associated with one of the ecological systems of interest in the
 database OR are handmodeled.  This code seeks to build that list.
 """
 import sys, pandas as pd, pickle
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendSysPaths27.py")
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapproduction as gp
-import FloodplainConfig as floodconfig
+import SEWWConfig as floodconfig
 
 ###################################################  List species in general study region
 #########################################################################################
@@ -22,14 +24,14 @@ studyRegionList = gp.gaprange.SppInAOI(AOIShp = floodconfig.AOI,
                                        reproduction = [1, 2, 3],
                                        presence = [1, 2, 3])
 
-################################################  List species that don't use floodplains
+#######################################################  List species that don't use SEWW
 #########################################################################################
 # Get list of systems to use from Ecological systems of interest.csv
-df = pd.read_csv(floodconfig.floodplainSystemCSV)
+df = pd.read_csv(floodconfig.SEWWSystemCSV)
 df1 = df[df["include"] == 1]
 floodsystems = set(list(df1.map_code))
 
-# Find species that use a floodplain map unit.
+# Find species that use a SEWW map unit.
 floodSp = []
 for sp in studyRegionList:
     prim, aux = gp.gapmodeling.SpEcoSystems(spCode=sp, season='all', contiguousOnly=True)

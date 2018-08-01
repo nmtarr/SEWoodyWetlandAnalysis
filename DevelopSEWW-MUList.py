@@ -3,12 +3,15 @@
 Created on Thu Aug 10 11:27:20 2017 by nmtarr
 
 Description: Code to begin the development of a list of ecological systems
-of interest.  Note that a final step has to be performed by a human.
+of interest.  
+
+Note!!!!!  A final step has to be performed by a human!!!!!
 """
 import sys
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
-import gapanalysis as ga, gapproduction as gp, pandas as pd
-import FloodplainConfig as floodconfig
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendSysPaths27.py")
+import  gapproduction as gp, pandas as pd
+import SEWWConfig as floodconfig
 
 # Use wildclass sets to whittle down the list.
 broadTree = gp.wildclass.hasBroadTree()

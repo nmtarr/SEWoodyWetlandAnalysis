@@ -2,11 +2,12 @@
 """
 Feb 2, 2017 by nmtarr
 
-Code to run analyses on the importance of floodplain forests for wildlife
+Code to run analyses on the importance of southeastern woody wetlands 
+for wildlife
 """
 import sys, pandas as pd, arcpy
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
-import gapanalysis as ga
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendSysPaths27.py")
 import FloodplainConfig as floodconfig
 pd.set_option('display.width', 1000)
 arcpy.CheckOutExtension("Spatial")

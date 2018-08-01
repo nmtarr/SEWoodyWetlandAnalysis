@@ -2,12 +2,13 @@
 """
 Feb 2, 2017 by nmtarr
 
-Code to run analyses on the importance of floodplain forests for wildlife
+Maps SE woody wetlands
 """
 import sys, arcpy
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapanalysis as ga
-import FloodplainConfig as floodconfig
+import SEWWConfig as floodconfig
 import pandas as pd
 
 ######################################################################## Set environments
@@ -21,17 +22,17 @@ arcpy.env.workspace=floodconfig.workDir
 arcpy.env.rasterStatistics="STATISTICS"
 arcpy.env.extent="MAXOF"
 
-################################################################## Map floodplain forests
+################################################################### Map SE woody wetlands
 #########################################################################################
 # Get list of systems to use from Ecological systems of interest.csv
-df = pd.read_csv(floodconfig.floodplainSystemCSV)
+df = pd.read_csv(floodconfig.SEWWSystemCSV)
 df1 = df[df["include"] == 1]
-floodsystems = list(df1.map_code)
+floodsystems = [int(x) for x in list(df1.map_code)]
 
-# Reclass land cover to get a map of floodplain forests.
+# Reclass land cover to get a map of SE woody wetlands.
 print("Reclassifing lcv1")
 ffMap1 = ga.landcover.ReclassLandCover(MUlist=floodsystems, 
-                                       reclassTo=10, keyword="Floodplain",
+                                       reclassTo=10, keyword="SEWW",
                                        workDir=floodconfig.resultDir,
                                        lcPath=floodconfig.lcMap,
                                        lcVersion="1.1")
@@ -47,6 +48,6 @@ arcpy.management.CalculateStatistics(ffMap2, skip_existing=True)
 
 # Save
 print("Saving")
-ffMap2.save(floodconfig.floodplainBinary)
-arcpy.management.BuildRasterAttributeTable(floodconfig.floodplainBinary, 
+ffMap2.save(floodconfig.SEWWBinary)
+arcpy.management.BuildRasterAttributeTable(floodconfig.SEWWBinary, 
                                            overwrite=True)

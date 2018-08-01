@@ -1,13 +1,13 @@
 '''
-Config file for a floopdlain forest analysis.  Below are variables that are
-more or less universal for the project.
+Config file for a southeastern woody wetland analysis.  Below are variables 
+that are more or less universal for the project.
 
 Figure size limits are 5.28 x 8.125
 Figure font helvetica or sans serif font, less than 10 pt.
 
 Table width <= 5.25 inches wide (8.3 in landscape), 9pt Times New Roman font.
 '''
-workDir = "T:/Floodplain_Forests_2016/"
+workDir = "T:/SE_Woody_Wetlands/"
 dataDir = workDir + "Data/"
 tempDir = workDir + "Temp/"
 intermDir = workDir + "Intermediate/"
@@ -23,24 +23,24 @@ AOI = dataDir + "StudyRegion.shp"
 AOI_TEST = dataDir + "/TestExtent2.shp"
 habmapSuffix = "_CONUS_HabMap_2001v1.tif"
 hucs = 'P:/Proj3/USGAP/Vert/Model/data/HucRng/Hucs.shp'
-overlayTable = resultDir + "Percent_FloodplainForest/Percent_in_Floodplain_Master.csv"
+overlayTable = resultDir + "Percent_SEWW/Percent_in_SEWW_Master.csv"
 summerRichness = resultDir + "Top_Summer/Top_Summer_Richness.tif"
 winterRichness = resultDir + "Top_Winter/Top_Winter_Richness.tif"
 
-# List of floodplain forest map units.
-floodplainSystemCSV = dataDir + "/Ecological systems of interest.csv"
+# List of SEWW land cover map units.
+SEWWSystemCSV = dataDir + "/Ecological systems of interest.csv"
 
-# Placeholder code to use for nulls in floodplain binary map.
+# Placeholder code to use for nulls in SEWW binary map.
 placeholder_code = 99
 
-# Name of binary floodplain layer (without NoDatas)
-floodplainBinary = resultDir + "Floodplains10&{0}.tif".format(placeholder_code)
+# Name of binary SEWW layer (without NoDatas)
+SEWWBinary = resultDir + "SEWWs10&{0}.tif".format(placeholder_code)
 
-# Name of floodplain layer (with NoDatas)
-floodplain = resultDir + "Floodplain.tif"
+# Name of SEWW layer (with NoDatas)
+SEWW = resultDir + "SEWW.tif"
 
 # Species list derived by querying range database for native species in ecoregions
-# that could have floodplain forests. 
+# that could have SEWWs. 
 import pickle
 studyRegionList = pickle.load(open(resultDir + "studyRegionList.pkl"))
 testExtent2List = ['aMUSAx', 'aSOFRx', 'aTWAMx', 'bAMAVx', 'bAMCRx','bAMKEx', 

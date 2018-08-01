@@ -5,8 +5,8 @@ Created on Mon Jul 03 14:40:57 2017 by nmtarr
 Description:  Builds pyramids for the results directory.
 """
 import arcpy, sys
-sys.path.append('P:/Proj3/USGap/Analysis/Floodplain_Forests_2016')
-import FloodplainConfig as cr
+sys.path.append('P:/Proj3/USGap/Analysis/SE_Woody_Wetlands')
+import SEWWConfig as cr
 
 arcpy.env.workspace = cr.resultDir
 arcpy.management.BuildPyramidsandStatistics(cr.resultDir,
