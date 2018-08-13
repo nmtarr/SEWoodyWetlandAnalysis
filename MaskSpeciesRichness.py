@@ -5,10 +5,12 @@ Feb 2, 2017 by nmtarr
 Code to run analyses on the importance of southeastern woody wetlands 
 for wildlife
 """
-import sys, pandas as pd, arcpy
+import sys
 sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
-execfile("T:/Scripts/AppendSysPaths27.py")
-import FloodplainConfig as floodconfig
+execfile("T:/Scripts/AppendPaths27.py")
+import arcpy
+import pandas as pd
+import SEWWConfig as floodconfig
 pd.set_option('display.width', 1000)
 arcpy.CheckOutExtension("Spatial")
 arcpy.env.overwriteOutput=True
@@ -27,5 +29,5 @@ for group in floodconfig.richnessPathsCONUS:
 for group in floodconfig.richnessPathsCONUS:
     print group
     MU = arcpy.sa.ExtractByMask(arcpy.Raster(floodconfig.richnessPathsCONUS[group]),
-                                arcpy.Raster(floodconfig.floodplain))
+                                arcpy.Raster(floodconfig.SEWW))
     MU.save(floodconfig.richnessPathsFlood[group])

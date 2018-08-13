@@ -9,10 +9,12 @@ A figure with boxplots of richness from CONUS, SE, and floodplains would be
 ideal; but it's not easy to do that with RAT/frequency tables.
 """
 import sys, pandas as pd, matplotlib.pyplot as plt, numpy as np
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendPaths27.py")
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapproduction as gp
 import gapanalysis as ga
-import FloodplainConfig as floodconfig
+import SEWWConfig as floodconfig
 pd.set_option('display.width', 1000)
 
 fontSize=9
@@ -33,7 +35,7 @@ for group in floodconfig.richnessPathsCONUS.keys():
     floodStats = ga.misc.RATStats(floodconfig.richnessPathsFlood[group],
                                   percentile_list=[25, 50, 75],
                                   dropZero=True)
-    floodStats["name"] = "floodplains"
+    floodStats["name"] = "SEWW"
     print conusStats
     print seStats
     print floodStats
@@ -62,10 +64,10 @@ for group in floodconfig.richnessPathsCONUS.keys():
     
     # Figure with comparison of means
     meansDF = pd.DataFrame(index=["mean"], columns=["CONUS", "Southeast", 
-                                                    "floodplains"])
+                                                    "SEWW"])
     meansDF.loc["mean", "CONUS"] = conusStats["mean"]
     meansDF.loc["mean", "Southeast"] = seStats["mean"]
-    meansDF.loc["mean", "floodplains"] = floodStats["mean"]
+    meansDF.loc["mean", "SEWW"] = floodStats["mean"]
     ax4 = mainFig.add_subplot(2,2,1)
     meansDF.plot(ax=ax4, kind="bar", figsize=(5,5))
     ax4.set_ylabel("Value")

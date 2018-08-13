@@ -4,10 +4,14 @@ Feb 2, 2017 by nmtarr
 
 Code to run analyses on the importance of floodplain forests for wildlife
 """
-import sys, pandas as pd, arcpy
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+import sys
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendPaths27.py")
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapanalysis as ga
-import FloodplainConfig as floodconfig
+import arcpy
+import pandas as pd
+import SEWWConfig as floodconfig
 pd.set_option('display.width', 1000)
 arcpy.CheckOutExtension("Spatial")
 
@@ -37,8 +41,8 @@ sRichnessMap = ga.richness.MapRichness(spp=summerTiffs, groupName="Top_Summer",
 
 #########################################  Mask the richness with the floodplain layer
 ######################################################################################
-maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap, arcpy.Raster(floodconfig.floodplainBinary))
+maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap, arcpy.Raster(floodconfig.SEWWBinary))
 maskedWinter.save(floodconfig.resultDir + "maskedRichnessWinter.tif")
 
-maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap, arcpy.Raster(floodconfig.floodplainBinary))
+maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap, arcpy.Raster(floodconfig.SEWWBinary))
 maskedSummer.save(floodconfig.resultDir + "maskedRichnessSummer.tif")

@@ -2,16 +2,18 @@
 """
 Created on Mon Aug 14 09:21:46 2017 by nmtarr
 
-Description:  This code summarizes the results of the CalculatePercentHabitatInFloodplainForest.py
+Description:  This code summarizes the results of the CalculatePercentHabitatInSEWW.py
  and generates a descriptive table, lists of summer and winter species with dependence
  on the system, and graphs of frequency distribution of amount that species'
- habitat occurs in floodplain forests.
+ habitat occurs in SE woody wetlands.
 """
 import sys, pandas as pd, matplotlib.pyplot as plt, numpy as np
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
+execfile("T:/Scripts/AppendPaths27.py")
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapproduction as gp
 import gapanalysis as ga
-import FloodplainConfig as floodconfig
+import SEWWConfig as floodconfig
 pd.set_option('display.width', 1000)
 
 ########################################################## Read in master table
@@ -33,7 +35,7 @@ df2 = df1.drop(["Zone", "NonHabitatPixels", "SummerPixels", "WinterPixels",
              "AllYearPixelTotal", "Date", "RunTime", "GeoTiff", "strUC", 
              "PercYearRound"], axis=1)
 print("{0} species use the systems of interest".format(len(df2)))
-df2.to_csv(floodconfig.resultDir + "Species that use floodplain systems.csv")
+df2.to_csv(floodconfig.resultDir + "Species that use SEWW systems.csv")
 
 # Summer and winter need to be described separately so that zeros can be
 # properly ommitted.
@@ -78,13 +80,13 @@ dfSpFF = df0.loc[df0.Zone != floodconfig.placeholder_code]
 # Filter dataframe for top species and save, also make list for below
 winterSp = dfSpFF[dfSpFF["PercWinter"] >= threshold]
 winterSp.to_csv(floodconfig.winterTopSpList)
-print("\n{0} species with more than {1}% of winter habitat in floodplain forests:".format(len(winterSp.strUC), threshold))
+print("\n{0} species with more than {1}% of winter habitat in SEWW:".format(len(winterSp.strUC), threshold))
 for x in [gp.gapdb.NameCommon(x) for x in list(winterSp.strUC)]:
     print("\t" + x)
 
 summerSp = dfSpFF[dfSpFF["PercSummer"] >= threshold]
 summerSp.to_csv(floodconfig.summerTopSpList)
-print("\n{0} species with more than {1}% of summer habitat in floodplain forests:".format(len(summerSp.strUC), threshold))
+print("\n{0} species with more than {1}% of summer habitat in SEWW:".format(len(summerSp.strUC), threshold))
 for x in [gp.gapdb.NameCommon(x) for x in list(summerSp.strUC)]:
     print("\t" + x)
 
