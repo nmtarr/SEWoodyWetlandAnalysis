@@ -18,18 +18,18 @@ see Requirements.txt and environment.yml
 
 CODE
 https://github.com/nmtarr/SEWoodyWetlandAnalysis
-These scripts can be run in this to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover:
+These scripts can be run in this order to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover.  Scripts with the same numbers can be run at the same times.  Alternatively, see "Run Analysis.ipynb" for a linear sequence.
 
-1. GetStudyRegionSpeciesList.py  
-1. DevelopSEWW-MUList.py  
+1. DevelopSEWW-MUList.py 
 2. MapSEWW.py  
-3. MaskSpeciesRichness  
-3. CalculatePercentHabitatInSEWW.py  
-4. CompareRichness  
-4. SummarizeOverlap.py  
-5. MapSEWWSpeciesRichness.py  
-5. BuildPyramids.py  
-5. AssessProtection.py  
+3. GetStudyRegionSpeciesList.py  
+4. MaskSpeciesRichness.py
+4. CalculatePercentHabitatInSEWW.py  
+5. CompareRichness.py
+5. SummarizeOverlap.py  
+6. MapSEWWSpeciesRichness.py  
+6. AssessProtection.py  
+7. BuildPyramids.py  
 
 TESTS
 see Tests.ipynb
@@ -41,7 +41,8 @@ CITATIONS
 Aycrigg, J.L., Davidson, A., Svancara, L.K., Gergely, K.J., McKerrow, A., and J.M. Scott. 2013. Representation of ecological systems within the protected areas network of the continental United States. PLoS ONE 8:e54689.
 Aycrigg, J.L., Tricker, J., Belote, R.T., Dietz, M.S., Duarte, L., and G.H. Aplet. 2016. The next 50 years: opportunities for diversifying the ecological representation of the National Wilderness Preservation System within the contiguous United States. Journal of Forestry 114: 396-404.
 Batzer, D.P., Day, F., and S.W. Golladay. 2012. Southeastern Swamp Complexes. 2012. Pp. 203-215, In D.P. Batzer and A.H. Baldwin (Eds.). Wetland Habitats of North America: Ecology and conservation concerns. The University of California Press Berkeley and Los Angeles, USA. 408 pp.
-Connor, W.H., Doyle, T.W., and Krauss, K.W. 2007a. Preface. Pp. xi-xiv, In W.H. Connor, T.W. Doyle and K.W. Krauss (Eds.). Ecology of Tidal Freshwater Forested Wetlands of the Southeastern United States. Springer Dordrecht, The Netherlands. 505 pp.
+Connor, W.H., Doyle, T.W., and Krauss, K.W. 2007a. Preface. Pp. xi-xiv, In W.H. Connor, T.W. Doyle and K.W. Krauss (Eds.). Ecology of Tidal Freshwater Forested W
+etlands of the Southeastern United States. Springer Dordrecht, The Netherlands. 505 pp.
 Connor, W.H., Krauss, K.W., and Doyle, T.W. 2007b. Ecology of tidal freshwater forests in coastal deltaic Louisiana and northeastern South Carolina. Pp. 223-253, In W.H. Connor, T.W. Doyle and K.W. Krauss (Eds.). Ecology of Tidal Freshwater Forested Wetlands of the Southeastern United States. Springer Dordrecht, The Netherlands. 505 pp.
 Day, R.H., Williams, T.M., and Swarzenski, C.M. 2007. Hydrology of tidal freshwater forested wetlands of the southeastern United States. Pp. 29-63, In W.H. Connor, T.W. Doyle and K.W. Krauss (Eds.). Ecology of Tidal Freshwater Forested Wetlands of the Southeastern United States. Springer Dordrecht, The Netherlands. 505 pp.
 Doyle, T.W., O’Neil, C.P., Melder, M.P.V., From, A.S., and Palta, M.M. 2007. Tidal freshwater swamps of the southeastern United States: Effects of land use, hurricanes, sea-level rise, and climate change. Pp. 1-28, In W.H. Connor, T.W. Doyle and K.W. Krauss (Eds.). Ecology of Tidal Freshwater Forested Wetlands of the Southeastern United States. Springer Dordrecht, The Netherlands. 505 pp.
