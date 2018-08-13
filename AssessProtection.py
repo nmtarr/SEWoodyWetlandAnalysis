@@ -12,10 +12,12 @@ needs some more documentation.
 """
 import sys, matplotlib.pyplot as plt
 import gapconfig as config
-sys.path.append('P:/Proj3/USGap/Scripts/Floodplain_Forests_2016')
+sys.path.append('P:/Proj3/USGap/Scripts/SEWW')
+execfile("T:/Scripts/AppendPaths27.py")
+execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapanalysis as ga
 import gapproduction as gp
-import FloodplainConfig as floodconfig
+import SEWWConfig as floodconfig
 import pandas as pd
 pd.set_option('display.width', 1000)
 
@@ -30,17 +32,17 @@ arcpy.env.snapRaster = config.CONUS_extent
 arcpy.env.rasterStatistics = "STATISTICS"
 arcpy.env.cellSize = 30
 
-##################################  How much of floodplain forest is protected?
+##################################  How much of SEWW is protected?
 ###############################################################################
 PAD = arcpy.Raster(floodconfig.PADUS_Man)
-FloodBin = arcpy.Raster(floodconfig.resultDir + "Floodplain.tif")
+FloodBin = arcpy.Raster(floodconfig.resultDir + "SEWW.tif")
 
-# Overlay the PAD layer and binary floodplain layer
+# Overlay the PAD layer and binary SEWW layer
 floodPAD = PAD * (FloodBin - 9)
-floodPAD.save(floodconfig.resultDir + "FloodplainPAD.tif")
+floodPAD.save(floodconfig.resultDir + "SEWWPAD.tif")
 
 # Make a pie chart of protection
-floodPADRAT = ga.misc.RATtoDataFrame(floodconfig.resultDir + "FloodplainPAD.tif")
+floodPADRAT = ga.misc.RATtoDataFrame(floodconfig.resultDir + "SEWWPAD.tif")
 ax = floodPADRAT.plot(y="cell_count", kind='Pie', figsize=(4,4), autopct='%.2f',
                  legend=False,
                  colors = ["#009933", "#cccc00", "#999999", "#e6e6e6"])
@@ -49,7 +51,7 @@ fig = plt.gcf()
 fig.savefig(floodconfig.resultDir + "Flooplain protection.png", dpi=600,
             bbox_inches="tight")
 
-############################## How much of each floodplain system is protected?
+############################## How much of each SEWW system is protected?
 ###############################################################################
 def getEcoSysProtection(ecoSys):
     '''
@@ -105,7 +107,7 @@ def getEcoSysProtection(ecoSys):
     except Exception as e:
         print(e)
 
-floodSysDF = pd.read_csv(floodconfig.floodplainSystemCSV)
+floodSysDF = pd.read_csv(floodconfig.SEWWSystemCSV)
 floodSysDF = floodSysDF[floodSysDF.include == 1]
 floodSysDF.drop(["notes", "include"], inplace=True, axis=1)
 floodSysDF["protected1&2(%)"] = [sum(getEcoSysProtection(i).iloc[:2].percent) for i in floodSysDF.system_name]
