@@ -43,5 +43,5 @@ dependencies:
   - wheel=0.31.1=py27_0
   - wincertstore=0.2=py27hf04cefb_0
   - zlib=1.2.11=hbc2faf4_2
-prefix: C:\Users\nmtarr\AppData\Local\Continuum\Anaconda2\envs\SEWoodyWetlands
+prefix: C:\Users\nmtarr\AppData\Local\Continuum\anaconda2\envs\SEWoodyWetlands
 

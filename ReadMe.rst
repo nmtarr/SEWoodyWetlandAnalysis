@@ -20,16 +20,16 @@ CODE
 https://github.com/nmtarr/SEWoodyWetlandAnalysis
 These scripts can be run in this to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover:
 
-1. GetStudyRegionSpeciesList.py  |br|
-1. DevelopSEWW-MUList.py  |br|
-2. MapSEWW.py  |br|
-3. MaskSpeciesRichness  |br|
-3. CalculatePercentHabitatInSEWW.py  |br|
-4. CompareRichness  |br|
-4. SummarizeOverlap.py  |br|
-5. MapSEWWSpeciesRichness.py  |br|
-5. BuildPyramids.py  |br|
-5. AssessProtection.py  |br|
+1. GetStudyRegionSpeciesList.py  
+1. DevelopSEWW-MUList.py  
+2. MapSEWW.py  
+3. MaskSpeciesRichness  
+3. CalculatePercentHabitatInSEWW.py  
+4. CompareRichness  
+4. SummarizeOverlap.py  
+5. MapSEWWSpeciesRichness.py  
+5. BuildPyramids.py  
+5. AssessProtection.py  
 
 TESTS
 see Tests.ipynb
