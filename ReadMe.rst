@@ -32,7 +32,7 @@ These scripts can be run in this order to perform an analysis of GAP habitat map
 7. BuildPyramids.py  
 
 TESTS
-see Tests.ipynb
+see Tests.ipynb?
 
 PROVENANCE
 ?
