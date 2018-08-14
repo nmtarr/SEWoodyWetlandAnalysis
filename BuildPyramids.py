@@ -4,6 +4,7 @@ Created on Mon Jul 03 14:40:57 2017 by nmtarr
 
 Description:  Builds pyramids for the results directory.
 """
+execfile("T:/Scripts/AppendPaths27.py")
 import arcpy, sys
 sys.path.append('P:/Proj3/USGap/Analysis/SE_Woody_Wetlands')
 import SEWWConfig as cr

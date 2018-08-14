@@ -41,8 +41,8 @@ sRichnessMap = ga.richness.MapRichness(spp=summerTiffs, groupName="Top_Summer",
 
 #########################################  Mask the richness with the floodplain layer
 ######################################################################################
-maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap, arcpy.Raster(floodconfig.SEWWBinary))
+maskedWinter = arcpy.sa.ExtractByMask(wRichnessMap[0], arcpy.Raster(floodconfig.SEWWBinary))
 maskedWinter.save(floodconfig.resultDir + "maskedRichnessWinter.tif")
 
-maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap, arcpy.Raster(floodconfig.SEWWBinary))
+maskedSummer = arcpy.sa.ExtractByMask(sRichnessMap[0], arcpy.Raster(floodconfig.SEWWBinary))
 maskedSummer.save(floodconfig.resultDir + "maskedRichnessSummer.tif")
