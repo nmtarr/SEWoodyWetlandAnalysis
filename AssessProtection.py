@@ -169,6 +169,7 @@ def getProtection(strUC, season):
         return qryDF
     except Exception as e:
         print(e)
+        print(strUC)
 
 # Get list of species to query.
 summerDF = pd.read_csv(floodconfig.summerTopSpList)
