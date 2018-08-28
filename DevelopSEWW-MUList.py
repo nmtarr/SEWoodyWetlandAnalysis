@@ -9,7 +9,7 @@ Note!!!!!  A final step has to be performed by a human!!!!!
 """
 import sys
 sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
-execfile("T:/Scripts/AppendSysPaths27.py")
+execfile("T:/Scripts/AppendPaths27.py")
 import  gapproduction as gp, pandas as pd
 import SEWWConfig as floodconfig
 
