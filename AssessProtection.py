@@ -11,14 +11,16 @@ This code may have some reduncancy in it that could be cleaned up, and it may
 needs some more documentation.
 """
 import sys, matplotlib.pyplot as plt
-import gapconfig as config
 sys.path.append('P:/Proj3/USGap/Scripts/SEWW')
 execfile("T:/Scripts/AppendPaths27.py")
 execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapanalysis as ga
 import gapproduction as gp
 import SEWWConfig as floodconfig
+import gapconfig as config
 import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 10)
 pd.set_option('display.width', 1000)
 
 ###### Geoprocessing environment settings
@@ -109,7 +111,7 @@ def getEcoSysProtection(ecoSys):
 
 floodSysDF = pd.read_csv(floodconfig.SEWWSystemCSV)
 floodSysDF = floodSysDF[floodSysDF.include == 1]
-floodSysDF.drop(["notes", "include"], inplace=True, axis=1)
+floodSysDF.drop(["include"], inplace=True, axis=1)
 floodSysDF["protected1&2(%)"] = [sum(getEcoSysProtection(i).iloc[:2].percent) for i in floodSysDF.system_name]
 floodSysDF.to_csv(floodconfig.resultDir + "EcolSysProtection.csv")
 
@@ -155,6 +157,10 @@ def getProtection(strUC, season):
         """.format(strUC, str(seasonDict[season][0]), str(seasonDict[season][1]))
         
         qryDF = pd.read_sql(sql, anCon).set_index("gap_sts")
+        
+        if len(qryDF) == 0:
+            qryDF = pd.DataFrame(data=[0,0,0,0], index=[1,2,3,4], columns=["cells"])
+            qryDF.index.name = 'gap_sts'
         
         del anCur
         anCon.close()
@@ -283,7 +289,7 @@ def status1or2(strUC, season):
     1 or 2.
     '''
     # Blank DataFrame to fill out
-    blank = pd.DataFrame(index = ["1","2","3","4"], 
+    blank = pd.DataFrame(index = ["1","2","3","4"],
                          columns=["cells", "percent"])
     # Get the protection amounts from Analytic DB
     one = getProtection(strUC, season)
@@ -303,5 +309,5 @@ df10 = pd.DataFrame(index=tops, columns=["summer", "winter"])
 df10["common_name"] = [gp.gapdb.NameCommon(s) for s in df10.index]
 df10["summer"] = [status1or2(strUC, "summer") for strUC in df10.index]
 df10["winter"] = [status1or2(strUC, "winter") for strUC in df10.index]
-df10.fillna(0, inplace=True).sort()
+df10.fillna(0, inplace=True)
 df10.to_csv(floodconfig.resultDir + "TopSpeciesProtection1or2.csv")
