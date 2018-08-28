@@ -11,7 +11,7 @@ This code may have some reduncancy in it that could be cleaned up, and it may
 needs some more documentation.
 """
 import sys, matplotlib.pyplot as plt
-sys.path.append('P:/Proj3/USGap/Scripts/SEWW')
+sys.path.append('P:/Proj3/USGap/Scripts/SE_Woody_Wetlands')
 execfile("T:/Scripts/AppendPaths27.py")
 execfile("T:/Scripts/AppendGAPAnalysis.py")
 import gapanalysis as ga
@@ -36,13 +36,14 @@ arcpy.env.cellSize = 30
 
 ##################################  How much of SEWW is protected?
 ###############################################################################
+'''  # Commented out to keep graph-making and slow data producing separate.
 PAD = arcpy.Raster(floodconfig.PADUS_Man)
 FloodBin = arcpy.Raster(floodconfig.resultDir + "SEWW.tif")
 
 # Overlay the PAD layer and binary SEWW layer
 floodPAD = PAD * (FloodBin - 9)
 floodPAD.save(floodconfig.resultDir + "SEWWPAD.tif")
-
+'''
 # Make a pie chart of protection
 floodPADRAT = ga.misc.RATtoDataFrame(floodconfig.resultDir + "SEWWPAD.tif")
 ax = floodPADRAT.plot(y="cell_count", kind='Pie', figsize=(4,4), autopct='%.2f',

@@ -31,7 +31,8 @@ These scripts can be run in this order to perform an analysis of GAP habitat map
 5. CompareRichness.py  
 5. SummarizeOverlap.py  
 6. MapSEWWSpeciesRichness.py  
-6. AssessProtection.py  
+6. MakeSEWWPAD.py
+7. AssessProtection.py  
 7. BuildPyramids.py  
 
 TESTS
