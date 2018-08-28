@@ -6,16 +6,27 @@ in,Amphibian species richness,T:/SE_Woody_Wetlands/Data/Amphibian_Richness.tif,,
 in,Bird species richness - summer,T:/SE_Woody_Wetlands/Data/Bird_Summer_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
 in,Bird species richness - winter,T:/SE_Woody_Wetlands/Data/Bird_Winter_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
 in,Reptile species richness,T:/SE_Woody_Wetlands/Data/Reptile_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
-in,Aall species richness,T:/SE_Woody_Wetlands/Data/All_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
+in,All species richness,T:/SE_Woody_Wetlands/Data/All_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
 in,Mammal species richness,T:/SE_Woody_Wetlands/Data/Mammal_Richness.tif,,conterminous U.S.,30 x 30 m,2001,,
 in,Study Region,T:/SE_Woody_Wetlands/Data/Study_Region.shp,,"-287767.1960000002873130,272048.4957000017166138 : 1833426.5782000012695789,2111111.4235999993979931",polygons,,,
 in,USGS Gap Analysis Project - Additional Data – Hydrologic Unit Codes [HUCs],https://www.sciencebase.gov/catalog/item/56d496eee4b015c306f17a42,,conterminous U.S.,polygons,2011,,
-in,List of southeastern woody wetland ecological systems,T:/SE_Woody_Wetlands/Data/Ecological systems of interest.csv,,non-spatial,non-spatial,2001-2018,,DevelopSEWW-MUList.py; DevelopSEWW-MUList.ipynb?
+in,List of southeastern woody wetland ecological systems,T:/SE_Woody_Wetlands/Data/Ecological systems of interest.csv,,aspatial,aspatial,2001-2018,,DevelopSEWW-MUList.py; DevelopSEWW-MUList.ipynb?
+out,Southeastern woody wetland ecological system map,T:\SE_Woody_Wetlands\Results\SEWW.tif,,conterminous U.S.,30 x 30 m,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/MapSEWW.py
+out,Study region species list,T:/SE_Woody_Wetlands/Results/Study Region Species List.csv,,aspatial,aspatial,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/GetStudyRegionSpeciesList.py
+out,Species list for southeastern woody wetlands,T:/SE_Woody_Wetlands/Results/studyRegionList.pkl,,aspatial,aspatial,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/GetStudyRegionSpeciesList.py
+out,Table of proportion of habitat in SEWW for all species in study area,T:/SE_Woody_Wetlands/Results/Species that use SEWW systems.csv,,aspatial,aspatial,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/CalculatePercentHabitatInSEWW.py
+out,table of top SEWW species - winter,T:/SE_Woody_Wetlands/Results/TopWinterSpecies.csv,,aspatial,aspatial,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/SummarizeOverlap.py
+out,table of top SEWW species - summer,T:/SE_Woody_Wetlands/Results/TopSummerSpecies.csv,,aspatial,aspatial,2001,,https://github.com/nmtarr/SEWoodyWetlandAnalysis/blob/master/SummarizeOverlap.py
 out,species richness in study region map,,,,,,,
-out,southeastern woody wetland ecological system map,,,,,,,
 out,species richness in southeastern woody wetlands map,,,,,,,
-out,study region species list,,,,,,,
-out,species list for southeastern woody wetlands,,,,,,,
-out,table of proportion of habitat in SEWW for all species in study area,,,,,,,
-out,table of top SEWW species - winter,,,,,,,
-out,table of top SEWW species - summer,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,

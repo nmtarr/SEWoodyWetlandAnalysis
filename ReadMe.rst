@@ -23,12 +23,12 @@ CODE
 https://github.com/nmtarr/SEWoodyWetlandAnalysis
 These scripts can be run in this order to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover.  Scripts with the same numbers can be run at the same times.  Alternatively, see "Run Analysis.ipynb" for a linear sequence.
 
-1. DevelopSEWW-MUList.py 
+1. DevelopSEWW-MUList.py  
 2. MapSEWW.py  
 3. GetStudyRegionSpeciesList.py  
-4. MaskSpeciesRichness.py
+4. MaskSpeciesRichness.py  
 4. CalculatePercentHabitatInSEWW.py  
-5. CompareRichness.py
+5. CompareRichness.py  
 5. SummarizeOverlap.py  
 6. MapSEWWSpeciesRichness.py  
 6. AssessProtection.py  
