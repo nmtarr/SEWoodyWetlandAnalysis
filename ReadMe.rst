@@ -4,6 +4,7 @@ Southeast Woody Wetland Analysis Code
 The "archive" folder contains some scripts from early in the workflow development.
 
 PURPOSE
+
 In the southeastern U.S., unique ecosystems and animal communities share landscapes with intensive, anthropogenic land use and development.  Biological diversity is exceptional in the region, including a high diversity of plant species and relatively high numbers of endemics that were long overlooked due to misconceptions about geological history, disturbance regimes, and environmental heterogeneity (Noss et al. 2015).  Hotspots of amphibian, bird, and reptile richness also occur in the region (Jenkins et al. 2015, McKerrow et al. 2018, Roll et al 2017), and rather than having one ecological system with high diversity, diversity is relatively high in multiple dissimilar communities such as longleaf pine savannahs (Noss et al. 2015) and depressional wetlands (Kirkman et al. 2012). Conservation assessments have identified an underrepresentation of riparian floodplain systems and Southeastern species in the national network of protected areas (Aycrigg et al. 2013, Jenkins et al. 2015, Aycrigg et al. 2016).  
 
 Whereas widespread silviculture, agriculture, and urbanization converted the natural ecosystems that originally covered the region, many unique ecosystems remain extant, albeit with reduced extents.  Among those systems are ones found in the lowland Coastal Plains that experience constant or frequent flooding or whose hydrology and woody plant compositions are unique to the region.  These woody wetland ecosystems include freshwater and tidal swamps, bottomland hardwood forests, pocosins, hydric hammocks, Carolina bays, and large depressional wetlands (Batzer et al. 2012, King et al. 2012, Kirkman et al. 2012, Richardson 2012).  Southeastern woody wetlands (SEWW’s) comprise much of the remaining natural forests and shrublands in the Coastal Plain (Wharton et al. 1982).  
@@ -17,46 +18,56 @@ Climate change and sea level rise raise new concerns for tidal freshwater swamps
 Many wildlife species avoid areas dominated by human land use (i.e. croplands and urban areas) so woody wetlands likely provide valuable habitat to wildlife populations in the region; however, the broad contribution of southeastern woody wetlands to wildlife habitat within the conterminous U.S. has not been examined at large extents, and identities of those species for which woody wetlands are most important are unknown.  I investigated relationships between wildlife habitat and southeastern woody wetlands at a national scale.  My objectives were to assess the distribution and protection of SEWW’s and determine 1) how species richness on SEWW’s compares to that of the Southeast and conterminous United States (CONUS), 2) which species have the largest proportion of their habitat in SEWW’s, 3) how well protected those species’ habitats are, and 4) locations of hotspots of SEWW-dependent species richness.  This study will identify species and locations to consider for further research, monitoring, and protection in the face of anticipated landscape changes in the Southeast.
 
 INPUTS & OUTPUTS
+
 see SEWW Inputs and Outputs.csv
 
 CONSTRAINTS
 
+
 DEPENDENCIES
+
 see Requirements.txt and environment.yml
 
 CODE
+
 https://github.com/nmtarr/SEWoodyWetlandAnalysis
+
 These scripts can be run in this order to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover.  Scripts with the same numbers can be run at the same times.  Alternatively, see "Run Analysis.ipynb" for a linear sequence.
 
-1. DevelopSEWW-MUList.py 
- 
-2. MapSEWW.py  
-3. GetStudyRegionSpeciesList.py  
+1. DevelopSEWW-MUList.py
 
-4. MaskSpeciesRichness.py  
+2. MapSEWW.py
 
-4. CalculatePercentHabitatInSEWW.py  
+3. GetStudyRegionSpeciesList.py
 
-5. CompareRichness.py  
+4. MaskSpeciesRichness.py
 
-5. SummarizeOverlap.py  
+4. CalculatePercentHabitatInSEWW.py
 
-6. MapSEWWSpeciesRichness.py  
+5. CompareRichness.py
 
-6. MakeSEWWPAD.py  
+5. SummarizeOverlap.py
 
-7. AssessProtection.py  
+6. MapSEWWSpeciesRichness.py
 
-7. BuildPyramids.py  
+6. MakeSEWWPAD.py
+
+7. AssessProtection.py
+
+7. BuildPyramids.py
 
 
 TESTS
+
 see Tests.ipynb?
 
+
 PROVENANCE
+
 ?
 
 CITATIONS
+
 Aycrigg, J.L., Davidson, A., Svancara, L.K., Gergely, K.J., McKerrow, A., and J.M. Scott. 2013. Representation of ecological systems within the protected areas network of the continental United States. PLoS ONE 8:e54689.
 
 Aycrigg, J.L., Tricker, J., Belote, R.T., Dietz, M.S., Duarte, L., and G.H. Aplet. 2016. The next 50 years: opportunities for diversifying the ecological representation of the National Wilderness Preservation System within the contiguous United States. Journal of Forestry 114: 396-404.
