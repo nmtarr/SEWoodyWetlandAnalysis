@@ -54,7 +54,7 @@ These scripts can be run in this order to perform an analysis of GAP habitat map
 
 7. AssessProtection.py
 
-7. BuildPyramids.py
+8. BuildPyramids.py
 
 
 TESTS
