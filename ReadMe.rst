@@ -1,7 +1,6 @@
 =================================
 Southeast Woody Wetland Analysis Code
 =================================
-The "archive" folder contains some scripts from early in the workflow development.
 
 PURPOSE
 
@@ -32,7 +31,7 @@ This repository includes an environment file (environment.pyl) that can be used 
 Additional code that is not available through pip or conda is needed as well:
 arcpy 10.4.1;
 GAPAnalysis >=0.3 available at https://github.com/nmtarr/GAPAnalysis; 
-GAPProduction >=1.5.1 available at https://github.com/nmtarr/GAPProduction
+GAPProduction >=1.6 available at https://github.com/nmtarr/GAPProduction
 
 
 CODE
@@ -40,6 +39,8 @@ CODE
 https://github.com/nmtarr/SEWoodyWetlandAnalysis
 
 These scripts can be run in this order to perform an analysis of GAP habitat maps, range data, PAD, and GAP Land Cover.  Scripts with the same numbers can be run at the same times.  Alternatively, see "Run Analysis.ipynb" for a linear sequence.
+
+The "archive" folder contains some scripts from early in the workflow development.
 
 1. DevelopSEWW-MUList.py
 
@@ -62,9 +63,3 @@ These scripts can be run in this order to perform an analysis of GAP habitat map
 7. AssessProtection.py
 
 8. BuildPyramids.py
-
-
-TESTS
-
-see Tests.ipynb?
-
