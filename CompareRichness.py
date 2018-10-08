@@ -17,13 +17,17 @@ import gapanalysis as ga
 import SEWWConfig as floodconfig
 pd.set_option('display.width', 1000)
 
-fontSize=9
+fontSize=10
 
-for group in floodconfig.richnessPathsCONUS.keys():
-    mainFig = plt.figure(figsize=(4,4), frameon=True)
-    mainFig.suptitle(group.title() + " Species Richness")
+groups = floodconfig.richnessPathsCONUS.keys()
+groups.sort()
+
+for group in groups:
+    mainFig = plt.figure(figsize=(11,2.5), frameon=True)
+    mainFig.suptitle(group.title().replace("_", " ") + " Species Richness",
+                     fontSize=12)
     
-    print group
+#    print group
     conusStats = ga.misc.RATStats(floodconfig.richnessPathsCONUS[group],
                                   percentile_list=[25, 50, 75],
                                   dropMax=True, dropZero=True)
@@ -36,31 +40,34 @@ for group in floodconfig.richnessPathsCONUS.keys():
                                   percentile_list=[25, 50, 75],
                                   dropZero=True)
     floodStats["name"] = "SEWW"
-    print conusStats
-    print seStats
-    print floodStats
+#    print conusStats
+#    print seStats
+#    print floodStats
     
     # CONUS
     conusRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsCONUS[group])
     conusRAT = conusRAT[:-1]
-    conusRAT = conusRAT[conusRAT.index > 0]
-    ax1 = mainFig.add_subplot(2,2,2)
+    conusRAT = conusRAT[conusRAT.index > 0]/1000
+    ax1 = mainFig.add_subplot(1,4,2)
     conusRAT.plot(ax=ax1, kind="line", legend=False, title="", color="blue")
-    ax1.set_ylabel("Frequency (# grid cells)")
+    ax1.set_ylabel("Frequency (1,000 grid cells)")
+    ax1.set_xlabel("Value")
     
     # SE
     seRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsSE[group])
-    seRAT = seRAT[seRAT.index > 0]
-    ax3 = mainFig.add_subplot(2,2,3)
+    seRAT = seRAT[seRAT.index > 0]/1000
+    ax3 = mainFig.add_subplot(1,4,3)
     seRAT.plot(ax=ax3, kind="line", legend=False, title="", color="orange")
-    ax3.set_ylabel("Frequency (# grid cells)")
+    ax3.set_ylabel("Frequency (1,000 grid cells)")
+    ax3.set_xlabel("Value")
     
     # Floodplains
     floodRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsFlood[group])
-    floodRAT = floodRAT[floodRAT.index > 0]
-    ax2 = mainFig.add_subplot(2,2,4)
+    floodRAT = floodRAT[floodRAT.index > 0]/1000
+    ax2 = mainFig.add_subplot(1,4,4)
     floodRAT.plot(ax=ax2, kind="line", legend=False, title="", color="green")
-    ax2.set_ylabel("Frequency (# grid cells)")
+    ax2.set_ylabel("Frequency (1,000 grid cells)")
+    ax2.set_xlabel("Value")
     
     # Figure with comparison of means
     meansDF = pd.DataFrame(index=["mean"], columns=["CONUS", "Southeast", 
@@ -68,8 +75,8 @@ for group in floodconfig.richnessPathsCONUS.keys():
     meansDF.loc["mean", "CONUS"] = conusStats["mean"]
     meansDF.loc["mean", "Southeast"] = seStats["mean"]
     meansDF.loc["mean", "SEWW"] = floodStats["mean"]
-    ax4 = mainFig.add_subplot(2,2,1)
-    meansDF.plot(ax=ax4, kind="bar", figsize=(5,5))
+    ax4 = mainFig.add_subplot(1,4,1)
+    meansDF.plot(ax=ax4, kind="bar")#, figsize=(5,5))
     ax4.set_ylabel("Value")
     ax4.set_xlabel("Mean")
     ax4.axes.get_xaxis().set_ticks([])
@@ -78,7 +85,7 @@ for group in floodconfig.richnessPathsCONUS.keys():
     else:
         plt.legend(loc=3)
     
-    plt.subplots_adjust(left=0.02, bottom=.04, right=.99, top=.89, 
+    plt.subplots_adjust(left=0.02, bottom=.04, right=.99, top=.80, 
                         wspace=.5, hspace=.3)
     
     mainFig.savefig(floodconfig.resultDir + "{0} mean chart.png".format(group),
