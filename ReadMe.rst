@@ -20,6 +20,7 @@ Rasterized PAD-US data.
 
 CONSTRAINTS
 
+see LICENSE.txt
 
 DEPENDENCIES
 
