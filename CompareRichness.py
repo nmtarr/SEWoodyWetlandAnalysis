@@ -24,7 +24,7 @@ groups.sort()
 
 for group in groups:
     mainFig = plt.figure(figsize=(11,2.5), frameon=True)
-    mainFig.suptitle(group.title().replace("_", " ") + " Species Richness",
+    mainFig.suptitle(group.title().replace("_", " "),
                      fontSize=12)
     
 #    print group
@@ -51,7 +51,7 @@ for group in groups:
     ax1 = mainFig.add_subplot(1,4,2)
     conusRAT.plot(ax=ax1, kind="line", legend=False, title="", color="blue")
     ax1.set_ylabel("Frequency (1,000 grid cells)")
-    ax1.set_xlabel("Value")
+    ax1.set_xlabel("Richness")
     
     # SE
     seRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsSE[group])
@@ -59,7 +59,7 @@ for group in groups:
     ax3 = mainFig.add_subplot(1,4,3)
     seRAT.plot(ax=ax3, kind="line", legend=False, title="", color="orange")
     ax3.set_ylabel("Frequency (1,000 grid cells)")
-    ax3.set_xlabel("Value")
+    ax3.set_xlabel("Richness")
     
     # Floodplains
     floodRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsFlood[group])
@@ -67,7 +67,7 @@ for group in groups:
     ax2 = mainFig.add_subplot(1,4,4)
     floodRAT.plot(ax=ax2, kind="line", legend=False, title="", color="green")
     ax2.set_ylabel("Frequency (1,000 grid cells)")
-    ax2.set_xlabel("Value")
+    ax2.set_xlabel("Richness")
     
     # Figure with comparison of means
     meansDF = pd.DataFrame(index=["mean"], columns=["CONUS", "Southeast", 
@@ -77,7 +77,7 @@ for group in groups:
     meansDF.loc["mean", "SEWW"] = floodStats["mean"]
     ax4 = mainFig.add_subplot(1,4,1)
     meansDF.plot(ax=ax4, kind="bar")#, figsize=(5,5))
-    ax4.set_ylabel("Value")
+    ax4.set_ylabel("Richness")
     ax4.set_xlabel("Mean")
     ax4.axes.get_xaxis().set_ticks([])
     if group == "amphibian":
