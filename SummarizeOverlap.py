@@ -113,7 +113,7 @@ topSp.index = [i + 1 for i in topSp.index]
 print("Table 2.  Percent habitat in woody wetlands for species with over 50% of their habitat in SEWW during summer or winter.")
 print(topSp)
 
-print("\nFigure 3.  Boxplots of the seasonal percentages of CONUS habitat that are in Southeastern Woody Wetlands for species that inhabit those systems".format(len(df2)))
+print("\nFigure 3.  Boxplots of the seasonal percentages of CONUS habitat that are in Southeastern Woody Wetlands for species that inhabit those systems.".format(len(df2)))
 ######################################### Histogram of percSummer and percWinter
 ################################################################################
 ## Summer

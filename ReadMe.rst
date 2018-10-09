@@ -4,7 +4,7 @@ Southeast Woody Wetland Analysis Code
 
 PURPOSE
 
-?????
+The southeastern U.S. contains woody wetland plant communities that are unique and subject to threats related to human development and climate change.  This analysis utilizes GAP data to provide insights about which species are at high risks of exposure to loss of or changes in these wetlands, where those species occur, and how much of their habitat is protected.
 
 INPUTS & OUTPUTS
 
