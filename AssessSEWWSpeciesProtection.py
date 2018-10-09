@@ -103,7 +103,7 @@ winter0 = pd.DataFrame(index=winterSp,
                        columns=["status_1", "status_2", "status_3", "status_4"])
 
 #### Fill out summer DF
-print("\n*** SUMMER ***")
+#print("\n*** SUMMER ***")
 for sp in summerSp:
     prot = getProtection(sp, season="summer")
     try:
@@ -132,25 +132,11 @@ summer0['status_4%'] = 100.*summer0.status_4/summer0.total_cells
 summer1 = summer0.apply(pd.to_numeric)
 summer1.to_csv(floodconfig.resultDir + "Summer protection.csv")
 summerProtDesc = summer1.describe()
-print(summerProtDesc)
+#print(summerProtDesc)
 summerProtDesc.to_csv(floodconfig.resultDir + "Summer protection descriptive stats.csv")
     
-# Graph protection
-dropCols = ["status_1", "status_2", "status_3", "status_4", "total_cells"]
-# Summer
-summer2 = summer1.drop(dropCols, axis=1)
-summer2.rename(columns={"status_1%":"1", "status_2%":"2","status_3%":"3",
-                        "status_4%":"4",}, inplace=True)
-sumAx = summer2.plot(kind="box", title="Summer", yticks=range(0,100,10),
-                     figsize=(5,4))
-sumAx.set_ylabel("Percent of Species' Total Habitat Area")
-sumAx.set_xlabel("GAP Protection Status")
-fig = plt.gcf()
-fig.savefig(floodconfig.resultDir + "Protection Boxplot Summer.png", dpi=600,
-            bbox_inches="tight")
-
 #### Fill out winter DF
-print("\n*** WINTER ***")
+#print("\n*** WINTER ***")
 for sp in winterSp:
     prot = getProtection(sp, season="winter")
     try:
@@ -180,20 +166,38 @@ winter0['status_4%'] = 100.*winter0.status_4/winter0.total_cells
 winter1 = winter0.apply(pd.to_numeric)
 winter1.to_csv(floodconfig.resultDir + "Winter protection.csv")
 winterProtDesc = winter1.describe()
-print(winterProtDesc)
+#print(winterProtDesc)
 winterProtDesc.to_csv(floodconfig.resultDir + "Winter protection descriptive stats.csv")
+
+######################### Graph protection
+##########################################
+dropCols = ["status_1", "status_2", "status_3", "status_4", "total_cells"]
+
+# Summer
+fig, ax = plt.subplots(1,2, sharey=True, figsize=(10,4))
+summer2 = summer1.drop(dropCols, axis=1)
+summer2.rename(columns={"status_1%":"1", "status_2%":"2","status_3%":"3",
+                        "status_4%":"4",}, inplace=True)
+sumAx = summer2.plot(ax = ax[0], kind="box", title="Summer", 
+                     yticks=range(0,100,10))
+sumAx.set_ylabel("Percent of Species' Total Habitat Area")
+sumAx.set_xlabel("GAP Protection Status")
+fig = plt.gcf()
+#fig.savefig(floodconfig.resultDir + "Protection Boxplot Summer.png", dpi=600,
+#            bbox_inches="tight")
 
 # Winter
 winter2 = winter1.drop(dropCols, axis=1)
 winter2.rename(columns={"status_1%":"1", "status_2%":"2","status_3%":"3",
                         "status_4%":"4",}, inplace=True)
 wintAx = winter2.plot(kind="box", title="Winter", yticks=range(0,100,10),
-                      figsize=(5,4))
+                      ax = ax[1])
 wintAx.set_ylabel("Percent of Species' Total Habitat Area")
 wintAx.set_xlabel("GAP Protection Status")
 fig = plt.gcf()
-fig.savefig(floodconfig.resultDir + "Protection Boxplot Winter.png", dpi=600,
-            bbox_inches="tight")
+fig.savefig(floodconfig.resultDir + "SEWW Species Protection Boxplots.png", 
+            dpi=600, bbox_inches="tight")
+
 
 #######################  Make table of status 1 or 2 protection for top species
 ###############################################################################
@@ -232,3 +236,11 @@ df10["summer"] = [status1or2(strUC, "summer") for strUC in df10.index]
 df10["winter"] = [status1or2(strUC, "winter") for strUC in df10.index]
 df10.fillna(0, inplace=True)
 df10.to_csv(floodconfig.resultDir + "TopSpeciesProtection1or2.csv")
+
+# Print dataframe
+df10.rename({"summer": "Summer", "winter": "Winter", "common_name": "Common Name"}, 
+            inplace=True, axis=1)
+df10.sort_values(by="Common Name", inplace=True)
+df10.index.name="GAP Species Code"
+df10 = df10[["Common Name", "Summer", "Winter"]]
+print(df10.round(2))
