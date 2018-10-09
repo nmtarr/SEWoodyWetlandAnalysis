@@ -61,6 +61,10 @@ The "archive" folder contains some scripts from early in the workflow developmen
 
 6. MakeSEWWPAD.py
 
-7. AssessProtection.py
+7. AssessSEWWProtection.py
+
+7. AssessSEWWSystemProtection.py
+
+7. AssessSEWWSpeciesProtection.py
 
 8. BuildPyramids.py
