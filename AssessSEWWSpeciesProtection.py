@@ -244,3 +244,7 @@ df10.sort_values(by="Common Name", inplace=True)
 df10.index.name="GAP Species Code"
 df10 = df10[["Common Name", "Summer", "Winter"]]
 print(df10.round(2))
+
+print("Figure 7. Boxplots showing the distributions of percentages of CONUS "
+      "habitat in the different GAP protection statuses for SEWW dependent "
+      "species furing summer and winter")
