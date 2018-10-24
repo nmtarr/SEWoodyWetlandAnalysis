@@ -106,4 +106,4 @@ print(floodSysDF.round(2))
 
 # Box plot of protection
 ax = floodSysDF.plot(kind='box')
-print("\n\nFigure 7. Boxplot of percentages of CONUS habitat protected for SEWW ecological systems.")
+print("\n\nFigure 7. Boxplot of percentages protected for SEWW ecological systems.")
