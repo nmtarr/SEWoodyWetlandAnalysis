@@ -65,7 +65,7 @@ def getProtection(strUC, season):
                padus1_4.gap_sts
         FROM lu_boundary_species 
         INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_species.boundary
-        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
+        LEFT JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid
         WHERE (lu_boundary_species.species_cd = '{0}' 
                and (lu_boundary_species.season = {1} or lu_boundary_species.season = {2})))
         
@@ -119,7 +119,7 @@ for sp in summerSp:
     except:
         summer0.loc[sp, 'status_3'] = 0
     try:
-        summer0.loc[sp, 'status_4'] = int(prot.loc["4"])
+        summer0.loc[sp, 'status_4'] = int(prot.loc["4"]) + int(prot.loc[None])
     except:
         summer0.loc[sp, 'status_4'] = 0
 summer0["total_cells"] = summer0.status_1 + summer0.status_2 + summer0.status_3 + summer0.status_4
@@ -152,7 +152,7 @@ for sp in winterSp:
     except:
         winter0.loc[sp, 'status_3'] = 0
     try:
-        winter0.loc[sp, 'status_4'] = int(prot.loc["4"])
+        winter0.loc[sp, 'status_4'] = int(prot.loc["4"]) + int(prot.loc[None])
     except:
         winter0.loc[sp, 'status_4'] = 0
         

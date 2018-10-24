@@ -61,7 +61,7 @@ def getEcoSysProtection(ecoSys):
                padus1_4.revoid, padus1_4.gap_sts
         FROM lu_boundary_gap_landfire 
         INNER JOIN lu_boundary ON lu_boundary.value = lu_boundary_gap_landfire.boundary
-        INNER JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid),
+        LEFT JOIN padus1_4 ON lu_boundary.padus1_4 = padus1_4.revoid),
         
         --Retrieve ecological system name and code
         ECOSYS AS (
