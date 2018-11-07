@@ -49,7 +49,7 @@ for group in groups:
     conusRAT = conusRAT[:-1]
     conusRAT = conusRAT[conusRAT.index > 0]/1000
     ax1 = mainFig.add_subplot(1,4,2)
-    conusRAT.plot(ax=ax1, kind="line", legend=False, title="", color="blue")
+    conusRAT.plot(ax=ax1, kind="line", legend=False, title="", color="red")
     ax1.set_ylabel("Frequency (1,000 grid cells)")
     ax1.set_xlabel("Richness")
     
@@ -65,7 +65,7 @@ for group in groups:
     floodRAT = ga.misc.RATtoDataFrame(floodconfig.richnessPathsFlood[group])
     floodRAT = floodRAT[floodRAT.index > 0]/1000
     ax2 = mainFig.add_subplot(1,4,4)
-    floodRAT.plot(ax=ax2, kind="line", legend=False, title="", color="green")
+    floodRAT.plot(ax=ax2, kind="line", legend=False, title="", color="grey")
     ax2.set_ylabel("Frequency (1,000 grid cells)")
     ax2.set_xlabel("Richness")
     
@@ -76,7 +76,7 @@ for group in groups:
     meansDF.loc["mean", "Southeast"] = seStats["mean"]
     meansDF.loc["mean", "SEWW"] = floodStats["mean"]
     ax4 = mainFig.add_subplot(1,4,1)
-    meansDF.plot(ax=ax4, kind="bar")#, figsize=(5,5))
+    meansDF.plot(ax=ax4, kind="bar", colormap='Set1')#, figsize=(5,5))
     ax4.set_ylabel("Richness")
     ax4.set_xlabel("Mean")
     ax4.axes.get_xaxis().set_ticks([])

@@ -68,4 +68,7 @@ df0.sort_values(inplace=True, by='SEWW Habitat (%)', ascending=False)
 df1 = df0.drop_duplicates()
 print(df1.round(2))
 
+# Plot
+df1.plot(kind='scatter', x='SEWW Habitat (%)', y='Percent Protected (1&2)')
+
 
