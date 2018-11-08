@@ -100,7 +100,7 @@ floodSysDF.drop(["Unnamed: 0", "map_code", "yes Anne", "yesAlexa", "past"],
                 inplace=True, axis=1)
 floodSysDF.set_index(["system_name"], inplace=True)
 floodSysDF.index.name = "Ecological System"
-floodSysDF.rename({"protected1&2(%)": "Status 1 or 2 protection (%)"},
+floodSysDF.rename({"protected1&2(%)": "Protection (%)"},
                    inplace=True, axis=1)
 print(floodSysDF.round(2))
 
