@@ -75,10 +75,11 @@ for group in groups:
     meansDF.loc["mean", "CONUS"] = conusStats["mean"]
     meansDF.loc["mean", "Southeast"] = seStats["mean"]
     meansDF.loc["mean", "SEWW"] = floodStats["mean"]
+    
     ax4 = mainFig.add_subplot(1,4,1)
     meansDF.plot(ax=ax4, kind="bar", colormap='Set1')#, figsize=(5,5))
-    ax4.set_ylabel("Richness")
-    ax4.set_xlabel("Mean")
+    ax4.set_ylabel("Mean Richness")
+    ax4.set_xlabel("")
     ax4.axes.get_xaxis().set_ticks([])
     if group == "amphibian":
         plt.legend(loc=2)
